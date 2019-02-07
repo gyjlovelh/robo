@@ -1,0 +1,60 @@
+<!--
+ * @Author: guanyj
+ * @Email: 18062791691@163.com
+ * @Date: 2019-02-03 20:34:59
+ * @LastEditTime: 2019-02-04 21:11:30
+ -->
+<div style="width: 400px;">
+    <form nz-form *ngIf="rules" [formGroup]="rules">
+
+        <nz-form-item>
+            <nz-form-label [nzRequired]="true" [nzSpan]="6">表名</nz-form-label>
+            <nz-form-control [nzSpan]="18">
+                <input type="text" nz-input formControlName="tableName" [placeholder]="'表名'">
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item *ngFor="let field of list">
+            <nz-form-label [nzRequired]="true" [nzSpan]="6">字段名</nz-form-label>
+            <nz-form-control [nzSpan]="18">
+                <div nz-row>
+                    <!-- 字段名 -->
+                    <div nz-col [nzSpan]="20">
+                        <input type="text" [formControlName]="field" nz-input [placeholder]="'字段名'">
+                    </div>
+
+                    <div nz-col [nzOffset]="1" [nzSpan]="3">
+                        <button [disabled]="rules.get(field).errors" nz-button (click)="openDetail(detail, field)"><i nz-icon type="ellipsis" theme="outline"></i></button>
+                    </div>
+                </div>
+
+                <nz-form-explain *ngIf="rules.get(field).dirty && rules.get(field).errors">
+                    <span *ngIf="rules.get(field).hasError('required')">必填</span>
+                    <span *ngIf="rules.get(field).hasError('minlength')">过短</span>
+                    <span *ngIf="rules.get(field).hasError('pattern')">只能以英文字母起头，且不能包含特殊字符</span>
+                    <span *ngIf="rules.get(field).hasError('dul')">重复</span>
+                </nz-form-explain>
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-control [nzOffset]="6" [nzSpan]="18">
+                <button nz-button nzType="dashed" [nzBlock]="true" (click)="addField()">
+                    <span> Add field</span><i nz-icon type="plus"></i>
+                </button>
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-control [nzOffset]="6" [nzSpan]="18">
+                <button nz-button
+                    [disabled]="rules.pristine || rules.invalid"
+                    [nzBlock]="true"
+                    [nzType]="'primary'"
+                    (click)="onSubmit()">提交</button>
+            </nz-form-control>
+        </nz-form-item>
+    </form>
+</div>
+
+<rob-collection-detail #detail (nzOnOk)="handleCollectionDetailSubmit($event)"></rob-collection-detail>

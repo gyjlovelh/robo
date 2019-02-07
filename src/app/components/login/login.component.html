@@ -1,0 +1,46 @@
+<!--
+ * @Author: guanyj
+ * @Email: 18062791691@163.com
+ * @Date: 2019-02-03 15:39:25
+ * @LastEditTime: 2019-02-03 16:55:12
+ -->
+<div *ngIf="!isLogin" class="login-wrap">
+    <div class="login-main">
+        <form *ngIf="rules" nz-form [formGroup]="rules">
+            <nz-form-item>
+                <nz-form-control>
+                    <p class="logo">LOGO</p>
+                </nz-form-control>
+                <nz-form-control>
+                    <nz-input-group [nzPrefix]="prefixUser">
+                        <input type="text" nz-input formControlName="username" placeholder="admin">
+                    </nz-input-group>
+                    <!-- <nz-form-explain *ngIf="validateForm.get('userName').dirty && validateForm.get('userName').errors">Please input your username!</nz-form-explain> -->
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-control>
+                    <nz-input-group [nzPrefix]="prefixLock">
+                        <input type="password" nz-input formControlName="password" placeholder="admin">
+                    </nz-input-group>
+                    <!-- <nz-form-explain *ngIf="validateForm.get('password').dirty && validateForm.get('password').errors">Please input your Password!</nz-form-explain> -->
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-control>
+                    <label class="remember" nz-checkbox>
+                        <span>keep me signed in</span>
+                    </label>
+                    <br>
+                    <button #btn nz-button class="login-form-button" [nzBlock]="true" [nzType]="'primary'" (click)="handleLogin(btn)">SIGN IN</button>
+                </nz-form-control>
+            </nz-form-item>
+        </form>
+        <ng-template #prefixUser><i nz-icon type="user"></i></ng-template>
+        <ng-template #prefixLock><i nz-icon type="lock"></i></ng-template>
+    </div>
+
+    <div class="register-main">
+
+    </div>
+</div>

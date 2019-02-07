@@ -1,0 +1,52 @@
+<!--
+ * @Author: guanyj
+ * @Email: 18062791691@163.com
+ * @Date: 2019-02-03 18:59:12
+ * @LastEditTime: 2019-02-07 11:18:33
+ -->
+<nz-layout style="height: 100%;">
+    <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed">
+        <div class="logo"></div>
+        <ul nz-menu [nzTheme]="'dark'"
+            [nzMode]="'inline'"
+            [nzInlineCollapsed]="isCollapsed">
+            <li nz-submenu>
+                <span title><i nz-icon type="user"></i><span class="nav-text">Collections</span></span>
+                <ul>
+                    <li nz-menu-item *ngFor="let name of collectionsName" (click)="handleMenuClick(name)">{{name}}</li>
+                </ul>
+            </li>
+            <li nz-menu-item style="text-align: center;" (click)="handleMenuClick('create')"><i nz-icon type="plus" theme="outline"></i></li>
+        </ul>
+    </nz-sider>
+    <nz-layout>
+        <nz-header>
+
+        </nz-header>
+        <nz-content>
+            <div style="margin:20px 16px;">
+                <nz-tabset class="override" [(nzSelectedIndex)]="selectedIndex" [nzSize]="'small'" [nzTabPosition]="'top'" [nzType]="'card'">
+                    <nz-tab *ngFor="let tab of tabs" [nzTitle]="titleTemplate">
+                        <ng-template #titleTemplate>
+                            <div>
+                                {{tab}}
+                                <a (click)="handleCloseTab(tab)"><i nz-icon type="close" class="ant-tabs-close-x"></i></a>
+                            </div>
+                        </ng-template>
+                        <div class="content-wrap">
+                            <ng-container *ngIf="tab === 'create'">
+                                <rob-create-collection></rob-create-collection>
+                            </ng-container>
+
+                            <ng-container *ngIf="tab !== 'create'">
+                                <rob-collection-list [tableName]="tab"></rob-collection-list>
+                            </ng-container>
+                        </div>
+                        <router-outlet></router-outlet>
+                    </nz-tab>
+                </nz-tabset>
+            </div>
+        </nz-content>
+        <nz-footer style="text-align: center;">copyright ©2017 Implement By Guanyj</nz-footer>
+    </nz-layout>
+</nz-layout>

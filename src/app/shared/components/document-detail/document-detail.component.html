@@ -1,0 +1,16 @@
+<!--
+ * @Author: guanyj
+ * @Email: 18062791691@163.com
+ * @Date: 2019-02-07 09:46:27
+ * @LastEditTime: 2019-02-07 12:16:29
+ -->
+
+<div class="document-detail-wrap">
+    <hs-form *ngIf="rules" [rules]="rules">
+
+        <ng-template hsFormFooterTemplate let-rules>
+            <button nz-button type="submit" [disabled]="!(rules.dirty && rules.valid)">确认</button>
+            <button nz-button (click)="handleBack()">返回</button>
+        </ng-template>
+    </hs-form>
+</div>

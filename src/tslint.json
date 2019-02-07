@@ -12,6 +12,10 @@
             "element",
             "rob",
             "kebab-case"
-        ]
+        ],
+        "semicolon": [
+            false
+        ],
+        "no-trailing-whitespace": [false]
     }
 }
