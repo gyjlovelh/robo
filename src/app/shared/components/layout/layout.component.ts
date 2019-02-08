@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { LayoutService } from "./layout.service";
 import { LocalStorageService } from "@jwaf/storage";
 import { NzMenuItemDirective } from "ng-zorro-antd";
+import { BusService } from "../../server/bus/bus.service";
 
 @Component({
     selector: 'rob-layout',
@@ -12,14 +13,16 @@ import { NzMenuItemDirective } from "ng-zorro-antd";
 export class LayoutComponent implements OnInit {
     isCollapsed = false;
     collectionsName = [];
-    tabs = [];
+    tabs = ['create'];
 
     selectedIndex = 0;
 
     constructor(
         private $layoutService: LayoutService,
         private $storage: LocalStorageService
-    ) {}
+    ) {
+     
+    }
 
     ngOnInit() {
         this.collectionsName = this.$storage.get('collections');

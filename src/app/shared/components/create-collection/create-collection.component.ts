@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl, Validators, ValidationErrors } from "@angular/forms";
 import { Observable, Observer } from "rxjs";
 import { CreateCollectionService } from "./create-collection.service";
+import { NzNotificationService } from "ng-zorro-antd";
 
 @Component({
     selector: 'rob-create-collection',
@@ -20,7 +21,8 @@ export class CreateCollectionComponent implements OnInit {
     details = new Map<string, any>();
 
     constructor(
-        private $service: CreateCollectionService
+        private $service: CreateCollectionService,
+        private $notify: NzNotificationService
     ) { }
 
     ngOnInit() {
@@ -60,7 +62,7 @@ export class CreateCollectionComponent implements OnInit {
         });
 
         this.$service.createCollection({collection: this.rules.get('tableName').value, config}).subscribe(res => {
-
+            this.$notify.success('数据库操作', '成功创建XXXX表 xxxx');
         });
     }
 

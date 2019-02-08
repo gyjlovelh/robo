@@ -1,5 +1,7 @@
 import { Component, TemplateRef, ViewChild, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
+import { BusService } from './shared/server/bus/bus.service';
+import { TopicConst } from './shared/const/topic.const';
 
 @Component({
     selector: 'rob-root',
@@ -11,8 +13,14 @@ export class AppComponent implements OnInit {
     triggerTemplate = null;
     tabs = [ 'Tab 1', 'Tab 2' ];
 
-    constructor() {
+    isLogin = false;
 
+    constructor(
+        private $bus: BusService
+    ) {
+        this.$bus.subscribe(TopicConst.login, data => {
+            this.isLogin = data.status;
+        });
     }
 
     ngOnInit() {

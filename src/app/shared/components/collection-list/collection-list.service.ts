@@ -8,7 +8,15 @@ export class CollectionService {
         private $http: HttpClient
     ) {}
 
-    queryDocumentList(tableName: string) {
+    queryDocumentConfig(tableName: string) {
         return this.$http.get(`/collection/config/${tableName}`);
+    }
+
+    queryDocumentList(tableName: string, params: any) {
+        return this.$http.post(`/document/list/${tableName}`, params);
+    }
+
+    deleteDocuments(tableName: string, ids: any[]) {
+        return this.$http.post(`/document/delete/${tableName}`, ids);
     }
 }

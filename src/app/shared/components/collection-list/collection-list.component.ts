@@ -9,6 +9,8 @@ import {
     transition,
     // ...
 } from '@angular/animations';
+import { ActionType } from "../../enum/action-type.enum";
+import { NzNotificationService } from "ng-zorro-antd";
 
 
 @Component({
@@ -53,10 +55,17 @@ export class CollectionListComponent implements OnInit {
 
     dataSource: GridResultModel;
 
+    doc: any;
+
     isDetailOpen = false;
 
+    condition: any;
+
+    private _tableName: string;
+
     @Input() set tableName(tn: string) {
-        this.$service.queryDocumentList(tn).subscribe((res: any) => {
+        this._tableName = tn;
+        this.$service.queryDocumentConfig(tn).subscribe((res: any) => {
             this.columns = Object.keys(res.data).map(key => (
                 {
                     field: key,
@@ -68,36 +77,75 @@ export class CollectionListComponent implements OnInit {
             ));
 
             this.columns[this.columns.length - 1].width = null;
+        });
 
-        })
+        this.refreshTable();
     }
 
-    constructor(
-        private $service: CollectionService
-    ) {
-        const model = new GridResultModel();
-        model.data = [{}, {}, {}];
-        model.total = 100;
-        model.current = 1;
-        model.pagesize = 20;
+    get tableName() {
+        return this._tableName;
+    }
 
-        this.dataSource = model;
+    @Input() documentType: string;
+
+    constructor(
+        private $service: CollectionService,
+        private $notify: NzNotificationService
+    ) {
+        this.condition = {
+            filters: [],
+            sort: null,
+            pagesize: 10,
+            current: 1
+        }
     }
 
     ngOnInit() { }
 
     handleCreate() {
         this.isDetailOpen = true;
+        this.documentType = ActionType.insert;
     }
 
-    onAction(action: any) {
-        this.isDetailOpen = true;
-        console.log('action', action);
-        if (action.type === 'delete') {
+    handleBack() {
+        this.isDetailOpen = false;
+        this.refreshTable();
+    }
 
+    onAction(action: {type: ActionType, data: any}) {
+        if (action.type === ActionType.delete) {
+            this.$service.deleteDocuments(this.tableName, [action.data._id]).subscribe(data => {
+                console.log(data);
+                this.$notify.success('数据库操作', '删除成功', {nzDuration: 3000});
+                this.refreshTable();
+            });
         } else {
-
+            this.isDetailOpen = true;
+            this.documentType = action.type;
+            this.doc = action.data;
         }
+    }
+
+    handleDataSourceChange(change: any) {
+        this.condition.filters = change.filters;
+        this.condition.sort = change.sort;
+        this.condition.current = change.offset / change.pagesize + 1;
+        this.condition.pagesize = change.pagesize;
+
+        this.refreshTable();
+        console.log('change:', change);
+    }
+
+    private refreshTable() {
+        this.$service.queryDocumentList(this.tableName, this.condition).subscribe((res: any) => {
+            const model = new GridResultModel();
+            model.data = res.data.data;
+            model.total = res.data.totalCount;
+            model.current = res.data.pageNum;
+            model.pagesize = res.data.pageSize;
+
+            this.dataSource = model;
+        });
     }
 
 }

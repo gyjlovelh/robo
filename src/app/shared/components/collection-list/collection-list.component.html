@@ -2,12 +2,15 @@
  * @Author: guanyj
  * @Email: 18062791691@163.com
  * @Date: 2019-02-05 17:43:22
- * @LastEditTime: 2019-02-07 12:19:44
+ * @LastEditTime: 2019-02-07 15:03:16
  -->
 <div class="collection-list-wrap">
     <div class="grid-wrap" [@collectionChange]="isDetailOpen ? 'listClose' : 'listOpen'">
-        <waf-grid *ngIf="columns" [gridModal]="dataSource"
-            [columns]="columns" (customAction)="onAction($event)">
+        <waf-grid *ngIf="columns"
+            [gridModal]="dataSource"
+            [columns]="columns"
+            (customAction)="onAction($event)"
+            (dataSourceChange)="handleDataSourceChange($event)">
 
             <ng-template wafGridLeftHeaderTemplate>
                 <button class="header-btn" nz-button>批量删除</button>
@@ -17,6 +20,6 @@
     </div>
 
     <div class="detail-wrap" [@detailChange]="isDetailOpen ? 'detailOpen' : 'detailClose'">
-        <rob-document-detail [rules]="columns" (onback)="isDetailOpen = false"></rob-document-detail>
+        <rob-document-detail [documentType]="documentType" [modal]="doc" [tableName]="tableName" [rules]="columns" (onback)="handleBack()"></rob-document-detail>
     </div>
 </div>

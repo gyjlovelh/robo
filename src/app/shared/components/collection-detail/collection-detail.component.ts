@@ -44,6 +44,7 @@ export class CollectionDetailComponent implements OnInit {
         this.rules.addControl('minlength', new FormControl());
         this.rules.addControl('required', new FormControl());
         this.rules.addControl('unique', new FormControl());
+        this.rules.addControl('isCopy', new FormControl());
         this.rules.addControl('default', new FormControl());
         this.rules.addControl('pattern', new FormControl());
         this.rules.addControl('async', new FormControl());

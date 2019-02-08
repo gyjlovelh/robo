@@ -1,0 +1,19 @@
+<!--
+ * @Author: guanyj
+ * @Email: 18062791691@163.com
+ * @Date: 2019-02-07 15:37:02
+ * @LastEditTime: 2019-02-07 16:02:35
+ -->
+<div class="header-wrap">
+    <nz-dropdown [nzPlacement]="'bottomRight'" [nzTrigger]="'click'">
+        <a nz-dropdown>
+            <nz-avatar nzSize="default" nzIcon="anticon anticon-user"></nz-avatar>
+        </a>
+        <ul nz-menu nzSelectable>
+            <li nz-menu-item>
+                <a (click)="logout()">退出登录</a>
+            </li>
+        </ul>
+    </nz-dropdown>
+
+</div>

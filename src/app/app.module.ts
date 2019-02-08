@@ -17,11 +17,10 @@ import en from '@angular/common/locales/en';
 registerLocaleData(en);
 
 /** 配置 ng-zorro-antd 国际化 **/
-import { NZ_I18N, en_US } from 'ng-zorro-antd';
+import { NZ_I18N, en_US, zh_CN } from 'ng-zorro-antd';
 
 /** 配置图标 */
 import { IconModule } from '@ant-design/icons-angular';
-import { LoginModule } from './components/login/login.module';
 import { AppRoute } from './app.route';
 import { UrlService } from './shared/server/url/url.service';
 import { environment } from 'src/environments/environment';
@@ -42,13 +41,12 @@ import { InterceptorService } from './shared/server/interceptor/interceptor.serv
         GridModule,
         CacheModule,
         AuthModule,
-        LoginModule,
         StorageModule,
         SharedModule,
         AppRoute
     ],
     providers: [
-        { provide: NZ_I18N, useValue: en_US },
+        { provide: NZ_I18N, useValue: zh_CN },
         { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
         CookieService,
         { provide: UrlService, useFactory: () => {

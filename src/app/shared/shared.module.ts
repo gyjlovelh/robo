@@ -23,6 +23,10 @@ import { CreateCollectionComponent } from "./components/create-collection/create
 import { CollectionDetailComponent } from "./components/collection-detail/collection-detail.component";
 import { CollectionListComponent } from "./components/collection-list/collection-list.component";
 import { DocumentDetailComponent } from "./components/document-detail/document-detail.component";
+import { HeaderComponent } from "./components/header/header.component";
+import { BusService } from "./server/bus/bus.service";
+import { TopicConst } from './const/topic.const';
+import { LoginComponent } from "./components/login/login.component";
 
 @NgModule({
     imports: [
@@ -35,20 +39,24 @@ import { DocumentDetailComponent } from "./components/document-detail/document-d
         NgZorroAntdModule
     ],
     declarations: [
+        LoginComponent,
         LayoutComponent,
         CreateCollectionComponent,
         CollectionDetailComponent,
         CollectionListComponent,
-        DocumentDetailComponent
+        DocumentDetailComponent,
+        HeaderComponent
     ],
     exports: [
-        LayoutComponent
+        LayoutComponent,
+        LoginComponent
     ],
     entryComponents: [
         CreateCollectionComponent,
         CollectionDetailComponent,
         CollectionListComponent,
-        DocumentDetailComponent
+        DocumentDetailComponent,
+        HeaderComponent
     ],
     providers: [
         LocalStorageService,
@@ -57,6 +65,14 @@ import { DocumentDetailComponent } from "./components/document-detail/document-d
         SystemConfigService,
         PermissionService,
         NavigationService,
+        {
+            provide: BusService,
+            useFactory() {
+                const bus = new BusService();
+                bus.registry( TopicConst.login );
+                return bus;
+            }
+        },
         {
             provide: CommonI18nService,
             useFactory() {
