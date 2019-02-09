@@ -2,13 +2,10 @@
  * Created by guanyj on  2018/9/4
  */
 import {Injectable} from "@angular/core";
-import {LocalStorageService} from "../local-storage/local-storage.service";
 
 @Injectable()
 export class AuthorityService {
-    constructor(
-        private $localStorageService: LocalStorageService,
-    ) {}
+    constructor() {}
 
     // getCurrentUser(): User {
     //     return <User>this.$localStorageService.get('user');

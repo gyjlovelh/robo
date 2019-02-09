@@ -277,9 +277,9 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
-"@hibiscus/form@^1.0.4":
-  version "1.0.4"
-  resolved "https://registry.npmjs.org/@hibiscus/form/-/form-1.0.4.tgz#6cf482e2d5f62e15da36a641ea7d2a00f28fb72a"
+"@hibiscus/form@^1.0.10":
+  version "1.0.10"
+  resolved "https://registry.npmjs.org/@hibiscus/form/-/form-1.0.10.tgz#8d996b05b817b944016d2472ce3a614537be424b"
   dependencies:
     "@angular/animations" "^6.1.0"
     "@angular/common" "^6.1.0"

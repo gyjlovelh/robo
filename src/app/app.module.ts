@@ -13,8 +13,8 @@ import { CookieService } from 'ngx-cookie-service';
 
 /** 配置 angular i18n **/
 import { registerLocaleData } from '@angular/common';
-import en from '@angular/common/locales/en';
-registerLocaleData(en);
+import zh from '@angular/common/locales/zh';
+registerLocaleData(zh);
 
 /** 配置 ng-zorro-antd 国际化 **/
 import { NZ_I18N, en_US, zh_CN } from 'ng-zorro-antd';
@@ -26,6 +26,10 @@ import { UrlService } from './shared/server/url/url.service';
 import { environment } from 'src/environments/environment';
 import { SharedModule } from './shared/shared.module';
 import { InterceptorService } from './shared/server/interceptor/interceptor.service';
+import { I18nService } from './shared/server/i18n/i18n.service';
+import { COMMON_INJECTOR } from './shared/common.consts';
+import { SystemConfigService } from './shared/server/system-config/system-config.service';
+import { SystemConfigKey } from './shared/const/system-config-key';
 
 @NgModule({
     declarations: [
@@ -51,6 +55,12 @@ import { InterceptorService } from './shared/server/interceptor/interceptor.serv
         CookieService,
         { provide: UrlService, useFactory: () => {
             return new UrlService(environment.httpHeadUrl, environment.wsHeadUrl);
+        }},
+        { provide: I18nService, useFactory: () => {
+            const systemConfigService = COMMON_INJECTOR.get(SystemConfigService);
+            const language = systemConfigService.getSystemConfigByKey(SystemConfigKey.language);
+            console.log('language', language);
+            return new I18nService(language);
         }}
     ],
     entryComponents: [

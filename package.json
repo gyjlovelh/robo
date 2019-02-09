@@ -20,7 +20,7 @@
     "@angular/platform-browser": "^6.1.0",
     "@angular/platform-browser-dynamic": "^6.1.0",
     "@angular/router": "^6.1.0",
-    "@hibiscus/form": "^1.0.4",
+    "@hibiscus/form": "^1.0.10",
     "@jwaf/auth": "^1.0.0",
     "@jwaf/cache": "^1.0.0",
     "@jwaf/grid": "^1.0.6",

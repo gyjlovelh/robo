@@ -3,6 +3,7 @@ import { LayoutService } from "./layout.service";
 import { LocalStorageService } from "@jwaf/storage";
 import { NzMenuItemDirective } from "ng-zorro-antd";
 import { BusService } from "../../server/bus/bus.service";
+import { SystemConfigService } from "../../server/system-config/system-config.service";
 
 @Component({
     selector: 'rob-layout',
@@ -19,13 +20,13 @@ export class LayoutComponent implements OnInit {
 
     constructor(
         private $layoutService: LayoutService,
-        private $storage: LocalStorageService
+        private $system: SystemConfigService
     ) {
-     
+
     }
 
     ngOnInit() {
-        this.collectionsName = this.$storage.get('collections');
+        this.collectionsName = this.$system.getSystemConfigByKey('collections');
     }
 
     handleMenuClick(name: string) {

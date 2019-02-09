@@ -2,10 +2,9 @@
  * Created by guanyj on  2018/9/4
  */
 
-import { NgModule } from "@angular/core";
+import { NgModule, Injector } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
-import { LocalStorageService } from "./server/local-storage/local-storage.service";
 import { AuthorityService } from "./server/authority/authority.service";
 import { AuthorityGuardService } from "./server/authority-guard/authority-guard.service";
 import { CommonI18nService } from "./server/common-i18n/common-i18n.service";
@@ -14,7 +13,7 @@ import { NgZorroAntdModule } from "ng-zorro-antd";
 import { PermissionService } from "./server/permission/permission.service";
 import { NavigationService } from "./server/navigation/navigation.service";
 import { SystemConfigKey } from "./const/system-config-key";
-import { COMMON_INJECTOR } from "./common.consts";
+import { COMMON_INJECTOR, InitCommonInjector } from "./common.consts";
 import { LayoutComponent } from "./components/layout/layout.component";
 import { RouterModule } from "@angular/router";
 import { GridModule } from '@jwaf/grid';
@@ -27,6 +26,7 @@ import { HeaderComponent } from "./components/header/header.component";
 import { BusService } from "./server/bus/bus.service";
 import { TopicConst } from './const/topic.const';
 import { LoginComponent } from "./components/login/login.component";
+import { EnumToListService } from "./server/enum-to-list/enum-to-list.service";
 
 @NgModule({
     imports: [
@@ -59,12 +59,12 @@ import { LoginComponent } from "./components/login/login.component";
         HeaderComponent
     ],
     providers: [
-        LocalStorageService,
         AuthorityService,
         AuthorityGuardService,
         SystemConfigService,
         PermissionService,
         NavigationService,
+        EnumToListService,
         {
             provide: BusService,
             useFactory() {
@@ -75,13 +75,20 @@ import { LoginComponent } from "./components/login/login.component";
         },
         {
             provide: CommonI18nService,
-            useFactory() {
+            useFactory: () => {
                 const systemConfigService = COMMON_INJECTOR.get(SystemConfigService);
                 const language = systemConfigService.getSystemConfigByKey(SystemConfigKey.language);
+                console.log('language', language);
                 return new CommonI18nService(language);
             }
         }
     ]
 })
 
-export class SharedModule { }
+export class SharedModule {
+    constructor(
+        private injector: Injector
+    ) {
+        InitCommonInjector(this.injector);
+    }
+ }

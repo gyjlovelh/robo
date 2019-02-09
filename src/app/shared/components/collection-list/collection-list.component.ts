@@ -66,15 +66,14 @@ export class CollectionListComponent implements OnInit {
     @Input() set tableName(tn: string) {
         this._tableName = tn;
         this.$service.queryDocumentConfig(tn).subscribe((res: any) => {
-            this.columns = Object.keys(res.data).map(key => (
-                {
-                    field: key,
-                    width: 100,
-                    filterType: res.data[key].fieldType,
-                    title_zh: res.data[key].title_zh,
-                    title_en: res.data[key].title_en
-                }
-            ));
+            this.columns = Object.keys(res.data).map(key => {
+                const item = res.data[key];
+                item.width = 100;
+                item.field = item.fieldName;
+                item.filterType = item.fieldType;
+                console.log('item', item);
+                return item;
+            });
 
             this.columns[this.columns.length - 1].width = null;
         });
@@ -104,6 +103,7 @@ export class CollectionListComponent implements OnInit {
 
     handleCreate() {
         this.isDetailOpen = true;
+        this.doc = null;
         this.documentType = ActionType.insert;
     }
 

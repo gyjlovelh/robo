@@ -2,100 +2,11 @@
  * @Author: guanyj
  * @Email: 18062791691@163.com
  * @Date: 2019-02-04 18:26:05
- * @LastEditTime: 2019-02-07 21:20:13
+ * @LastEditTime: 2019-02-09 12:22:52
  -->
 <nz-modal [nzTitle]="'详细规则'" *ngIf="nzVisible" [nzWidth]="600" [nzVisible]="nzVisible" [nzMask]="true" [nzOkText]="'确定'"
     [nzCancelText]="'返回'" [nzMaskClosable]="false" [nzClosable]="true" (nzOnCancel)="nzVisible = false" (nzOnOk)="onSubmit()">
 
-    <form nz-form class="override-modal" *ngIf="rules" [formGroup]="rules">
-        <nz-form-item>
-            <nz-form-label [nzSpan]="3">字段名</nz-form-label>
-            <nz-form-control [nzSpan]="21">
-                <nz-form-text>{{ fieldName }}</nz-form-text>
-            </nz-form-control>
-        </nz-form-item>
-        <nz-form-item>
-            <!-- 字段类型 -->
-            <nz-form-label [nzSpan]="3">类型</nz-form-label>
-            <nz-form-control [nzSpan]="21">
-                <nz-select formControlName="fieldType">
-                    <nz-option [nzValue]="'string'" [nzLabel]="'字符'"></nz-option>
-                    <nz-option [nzValue]="'numeric'" [nzLabel]="'数字'"></nz-option>
-                    <nz-option [nzValue]="'date'" [nzLabel]="'日期'"></nz-option>
-                    <!-- <nz-option [nzValue]="'buffer'" [nzLabel]="'日期'"></nz-option> -->
-                    <nz-option [nzValue]="'array'" [nzLabel]="'集合'"></nz-option>
-                </nz-select>
-            </nz-form-control>
-        </nz-form-item>
-
-        <nz-form-item>
-            <nz-form-label [nzSpan]="3">中文名</nz-form-label>
-            <nz-form-control [nzSpan]="9">
-                <input nz-input formControlName="title_zh">
-            </nz-form-control>
-
-            <nz-form-label [nzSpan]="3">英文名</nz-form-label>
-            <nz-form-control [nzSpan]="9">
-                <input nz-input formControlName="title_en">
-            </nz-form-control>
-        </nz-form-item>
-
-        <nz-form-item>
-            <nz-form-label [nzSpan]="3">最大值</nz-form-label>
-            <nz-form-control [nzSpan]="9">
-                <nz-input-number [nzMin]="0" formControlName="max" style="width: 100%;"></nz-input-number>
-            </nz-form-control>
-
-            <nz-form-label [nzSpan]="3">最小值</nz-form-label>
-            <nz-form-control [nzSpan]="9">
-                <nz-input-number [nzMin]="0" formControlName="min"></nz-input-number>
-            </nz-form-control>
-        </nz-form-item>
-
-        <nz-form-item>
-            <nz-form-label [nzSpan]="3">最大长度</nz-form-label>
-            <nz-form-control [nzSpan]="9">
-                <nz-input-number [nzMin]="0" formControlName="maxlength"></nz-input-number>
-            </nz-form-control>
-
-            <nz-form-label [nzSpan]="3">最小长度</nz-form-label>
-            <nz-form-control [nzSpan]="9">
-                <nz-input-number [nzMin]="0" formControlName="minlength"></nz-input-number>
-            </nz-form-control>
-        </nz-form-item>
-
-        <nz-form-item>
-            <nz-form-control [nzOffset]="3" [nzSpan]="6">
-                <label nz-checkbox formControlName="unique">是否唯一</label>
-            </nz-form-control>
-
-            <nz-form-control [nzSpan]="6">
-                <label nz-checkbox formControlName="required">是否必填</label>
-            </nz-form-control>
-
-            <nz-form-control [nzSpan]="6">
-                <label nz-checkbox formControlName="isCopy">是否复制</label>
-            </nz-form-control>
-        </nz-form-item>
-
-        <nz-form-item>
-            <nz-form-label [nzSpan]="3">缺省值</nz-form-label>
-            <nz-form-control [nzSpan]="6">
-                <input type="text" nz-input formControlName="default">
-            </nz-form-control>
-
-            <nz-form-label [nzSpan]="3">正则</nz-form-label>
-            <nz-form-control [nzSpan]="6">
-                <input type="text" nz-input formControlName="pattern">
-            </nz-form-control>
-        </nz-form-item>
-
-        <nz-form-item>
-            <nz-form-label [nzSpan]="3">异步校验</nz-form-label>
-            <nz-form-control [nzSpan]="21">
-                <nz-form-text>TODO</nz-form-text>
-            </nz-form-control>
-        </nz-form-item>
-    </form>
+    <hs-form  [rules]="rules"></hs-form>
 
 </nz-modal>

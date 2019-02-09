@@ -4,12 +4,14 @@
 import {Injectable} from "@angular/core";
 import {StorageKey} from "../../const/storage-key";
 import {NzI18nService, zh_CN, en_US} from "ng-zorro-antd";
+import { LocalStorageService } from "@jwaf/storage";
 
 @Injectable()
 export class SystemConfigService {
     private systemKey = `${StorageKey.prefix}${StorageKey.separator}${StorageKey.SystemConfig}`;
     constructor(
-        private $nzI18nService: NzI18nService
+        private $nzI18nService: NzI18nService,
+        private $localStorage: LocalStorageService
     ) {}
 
     /**
@@ -23,7 +25,7 @@ export class SystemConfigService {
             if (config.language) {
                 this.$nzI18nService.setLocale(config.language === 'en_US' ? en_US : zh_CN);
             }
-            localStorage.setItem(this.systemKey, config);
+            this.$localStorage.set(this.systemKey, config);
         } catch (err) {
             console.error('systemConfig 格式不正确');
         }
@@ -35,7 +37,7 @@ export class SystemConfigService {
      */
     getSystemConfig(): any {
         try {
-            return JSON.parse(localStorage.getItem(this.systemKey));
+            return this.$localStorage.get(this.systemKey);
         } catch (err) {
             return {};
         }

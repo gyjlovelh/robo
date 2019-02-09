@@ -3,6 +3,8 @@ import { HsFormGroup, HsFormControl } from "@hibiscus/form";
 import { DocumentDetailService } from "./document-detail.service";
 import { NzNotificationService } from "ng-zorro-antd";
 import { ActionType } from "../../enum/action-type.enum";
+import { Validators } from "@angular/forms";
+import { CommonI18nService } from "../../server/common-i18n/common-i18n.service";
 
 @Component({
     selector: 'rob-document-detail',
@@ -27,7 +29,9 @@ export class DocumentDetailComponent {
             const control = new HsFormControl();
             control.label = item.title_zh;
             control.field = item.field;
+            console.log('item', item);
             control.type = this.converControlType(item.filterType);
+            this.resolveValidator(control, item);
             group.addControl(item.field, control);
         });
 
@@ -46,6 +50,9 @@ export class DocumentDetailComponent {
         if (this.rules) {
             this.rules.readonly = type === ActionType.detail;
         }
+        if (type === ActionType.insert) {
+            (this.rules as HsFormGroup).reset();
+        }
     };
 
     get documentType(): ActionType {
@@ -58,7 +65,8 @@ export class DocumentDetailComponent {
 
     constructor(
         private $form: DocumentDetailService,
-        private $notify: NzNotificationService
+        private $notify: NzNotificationService,
+        private $i18n: CommonI18nService
     ) {
         // const group = new HsFormGroup();
         // group.addControl('name', new HsFormControl());
@@ -107,5 +115,30 @@ export class DocumentDetailComponent {
                 break;
         }
         return convertType;
+    }
+
+    private resolveValidator(control: HsFormControl, data: any) {
+        const valitors = [];
+        if (data.required) {
+            valitors.push(Validators.required);
+            control.setErrorMsg('required', this.$i18n.get('errorMessage.required'));
+        }
+        if (data.min) {
+            valitors.push(Validators.min(data.min));
+            control.setErrorMsg('min', this.$i18n.get('errorMessage.min') + data.min);
+        }
+        if (data.max) {
+            valitors.push(Validators.max(data.max));
+            control.setErrorMsg('max', this.$i18n.get('errorMessage.max') + data.max);
+        }
+        if (data.minlength) {
+            valitors.push(Validators.minLength(data.minlength));
+            control.setErrorMsg('minlength', this.$i18n.get('errorMessage.minlength') + data.minlength);
+        }
+        if (data.maxlength) {
+            valitors.push(Validators.maxLength(data.maxlength));
+            control.setErrorMsg('maxlength', this.$i18n.get('errorMessage.maxlength') + data.maxlength);
+        }
+        control.setValidators(valitors);
     }
 }
