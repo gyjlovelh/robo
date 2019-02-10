@@ -29,6 +29,7 @@ export class InterceptorService implements HttpInterceptor {
 
         const authReq = req.clone({
             setHeaders: {
+                'Authorization': '111',
                 'Cache-Control': 'no-cache',
                 'Pragma': 'no-cache',
                 'X-Requested-With': 'XMLHttpRequest'

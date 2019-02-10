@@ -30,3 +30,23 @@
     }
 }
 
+.override.ant-menu {
+
+    .ant-menu-item {
+        margin: 0;
+
+        .delete-btn {
+            display: inline-block;
+            float: right;
+            visibility: hidden;
+            transition: 0.1s;
+        }
+
+        &:hover {
+            .delete-btn {
+                visibility: visible;
+            }
+        }
+    }
+}
+

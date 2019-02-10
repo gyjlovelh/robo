@@ -11,6 +11,7 @@ export const I18N: any = {
             numeric: '数字',
             date: '日期',
             boolean: '布尔值',
+            dropdown: '枚举'
         }
     },
     errorMessage: {

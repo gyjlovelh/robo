@@ -2,21 +2,23 @@
  * @Author: guanyj
  * @Email: 18062791691@163.com
  * @Date: 2019-02-03 18:59:12
- * @LastEditTime: 2019-02-07 15:42:19
+ * @LastEditTime: 2019-02-10 17:00:49
  -->
 <nz-layout style="height: 100%;">
     <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed">
         <div class="logo"></div>
-        <ul nz-menu [nzTheme]="'dark'"
-            [nzMode]="'inline'"
-            [nzInlineCollapsed]="isCollapsed">
+        <ul nz-menu class="override" [nzTheme]="'dark'" [nzMode]="'inline'" [nzInlineCollapsed]="isCollapsed">
             <li nz-submenu>
                 <span title><i nz-icon type="user"></i><span class="nav-text">Collections</span></span>
                 <ul>
-                    <li nz-menu-item *ngFor="let name of collectionsName" (click)="handleMenuClick(name)">{{name}}</li>
+                    <li nz-menu-item *ngFor="let name of collectionsName" (click)="handleMenuClick(name)">
+                        {{name}}
+                        <!-- <a class="delete-btn" (click)="onCollectionDelete(name)"><i nz-icon type="delete" theme="outline"></i></a> -->
+                    </li>
                 </ul>
             </li>
-            <li nz-menu-item style="text-align: center;" (click)="handleMenuClick('create')"><i nz-icon type="plus" theme="outline"></i></li>
+            <li nz-menu-item style="text-align: center;" (click)="handleMenuClick('create')"><i nz-icon type="plus"
+                    theme="outline"></i></li>
         </ul>
     </nz-sider>
     <nz-layout>
@@ -25,7 +27,8 @@
         </nz-header>
         <nz-content>
             <div style="margin:20px 16px;">
-                <nz-tabset class="override" [(nzSelectedIndex)]="selectedIndex" [nzSize]="'small'" [nzTabPosition]="'top'" [nzType]="'card'">
+                <nz-tabset class="override" [(nzSelectedIndex)]="selectedIndex" [nzSize]="'small'" [nzTabPosition]="'top'"
+                    [nzType]="'card'">
                     <nz-tab *ngFor="let tab of tabs" [nzTitle]="titleTemplate">
                         <ng-template #titleTemplate>
                             <div>
@@ -50,3 +53,9 @@
         <nz-footer style="text-align: center;">copyright ©2019 Implement By Guanyj</nz-footer>
     </nz-layout>
 </nz-layout>
+
+<!-- Todolist -->
+<nz-badge class="todo-list" [nzDot]="true">
+    <a robTodo><i nz-icon type="tags" theme="outline"></i></a>
+</nz-badge>
+

@@ -29,8 +29,10 @@ export class DocumentDetailComponent {
             const control = new HsFormControl();
             control.label = item.title_zh;
             control.field = item.field;
-            console.log('item', item);
             control.type = this.converControlType(item.filterType);
+            if (control.type === 'dropdown') {
+                control.dropdown = item.dropdown;
+            }
             this.resolveValidator(control, item);
             group.addControl(item.field, control);
         });

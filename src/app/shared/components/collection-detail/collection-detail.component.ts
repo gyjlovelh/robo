@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, EventEmitter } from "@angular/core";
+import { Component, Input, OnInit, Output, EventEmitter, ViewChild, TemplateRef, AfterViewInit } from "@angular/core";
 import { CollectionDetailService } from "./collection-detail.service";
 import { HsFormControl, HsFormGroup } from "@hibiscus/form";
 
@@ -9,7 +9,7 @@ import { HsFormControl, HsFormGroup } from "@hibiscus/form";
         CollectionDetailService
     ]
 })
-export class CollectionDetailComponent implements OnInit {
+export class CollectionDetailComponent implements OnInit, AfterViewInit {
     @Input() field: string;
 
     @Input() set fieldName(field: string) {
@@ -34,6 +34,8 @@ export class CollectionDetailComponent implements OnInit {
 
     rules: HsFormGroup;
 
+    @ViewChild('dropdownTemplate') private dropdownTemplate: TemplateRef<any>;
+
     constructor(
         private $service: CollectionDetailService
     ) {
@@ -42,6 +44,10 @@ export class CollectionDetailComponent implements OnInit {
 
     ngOnInit() {
 
+    }
+
+    ngAfterViewInit() {
+        this.$service.addTemplate('dropdownTemplate', this.dropdownTemplate);
     }
 
     onSubmit() {

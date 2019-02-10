@@ -10,6 +10,8 @@ export class CollectionDetailService {
 
     private rules: HsFormGroup;
 
+    private templateMap = new Map<string, any>();
+
     constructor(
         private $dropdown: EnumToListService,
         private $i18n: CommonI18nService
@@ -25,6 +27,7 @@ export class CollectionDetailService {
         this.rules.addControl('fieldType', this.initFieldTypeControl());
         this.rules.addControl('title_zh', this.initTitleZhControl());
         this.rules.addControl('title_en', this.initTitleEnControl());
+        // this.rules.addControl('dropdown', this.initDropdownControl());
         this.rules.addControl('max', this.initMaxControl());
         this.rules.addControl('min', this.initMinControl());
         this.rules.addControl('maxlength', this.initMaxlengthControl());
@@ -37,6 +40,10 @@ export class CollectionDetailService {
         this.rules.addControl('async', this.initAsyncControl());
 
         return this.rules;
+    }
+
+    addTemplate(key, template) {
+        this.templateMap.set(key, template);
     }
 
     private initFieldNameControl() {
@@ -60,10 +67,17 @@ export class CollectionDetailService {
                 this.rules.addControl('maxlength', this.initMaxlengthControl(), {after: 'fieldType'});
                 this.rules.removeControl('min');
                 this.rules.removeControl('max');
-
+                this.rules.removeControl('dropdown');
             } else if (value === FieldType.numeric) {
                 this.rules.addControl('max', this.initMaxControl(), {after: 'fieldType'});
                 this.rules.addControl('min', this.initMinControl(), {after: 'fieldType'});
+                this.rules.removeControl('minlength');
+                this.rules.removeControl('maxlength');
+                this.rules.removeControl('dropdown');
+            } else if (value === FieldType.dropdown) {
+                this.rules.addControl('dropdown', this.initDropdownControl(), {after: 'fieldType'});
+                this.rules.removeControl('min');
+                this.rules.removeControl('max');
                 this.rules.removeControl('minlength');
                 this.rules.removeControl('maxlength');
             } else {
@@ -71,6 +85,7 @@ export class CollectionDetailService {
                 this.rules.removeControl('max');
                 this.rules.removeControl('minlength');
                 this.rules.removeControl('maxlength');
+                this.rules.removeControl('dropdown');
             }
         });
         return control;
@@ -109,6 +124,21 @@ export class CollectionDetailService {
         control.setErrorMsg('required', this.$i18n.get('errorMessage.required'));
         control.setErrorMsg('minlength', this.$i18n.get('errorMessage.minlength') + 2);
         control.setErrorMsg('maxlength', this.$i18n.get('errorMessage.maxlength') + 12);
+        return control;
+    }
+
+    /** 枚举配置 */
+    private initDropdownControl() {
+        const control = new HsFormControl();
+        control.field = 'dropdown';
+        control.labelTemplate = this.templateMap.get('dropdownTemplate');
+        control.type = 'textarea';
+        control.setValidators([
+            Validators.required,
+            Validators.pattern(/([a-z\u4e00-\u9fa5]+\s[a-z]+\s[a-z0-9]+(\n)*)+/i)
+        ]);
+        control.setErrorMsg('required', this.$i18n.get('errorMessage.required'));
+        control.setErrorMsg('pattern', '正则不对');
         return control;
     }
 

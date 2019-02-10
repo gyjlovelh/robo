@@ -27,6 +27,8 @@ import { BusService } from "./server/bus/bus.service";
 import { TopicConst } from './const/topic.const';
 import { LoginComponent } from "./components/login/login.component";
 import { EnumToListService } from "./server/enum-to-list/enum-to-list.service";
+import { CookieService } from "ngx-cookie-service";
+import { TodoDirective } from "./directive/todo.directive";
 
 @NgModule({
     imports: [
@@ -45,11 +47,13 @@ import { EnumToListService } from "./server/enum-to-list/enum-to-list.service";
         CollectionDetailComponent,
         CollectionListComponent,
         DocumentDetailComponent,
-        HeaderComponent
+        HeaderComponent,
+        TodoDirective
     ],
     exports: [
         LayoutComponent,
-        LoginComponent
+        LoginComponent,
+        TodoDirective
     ],
     entryComponents: [
         CreateCollectionComponent,
@@ -59,6 +63,7 @@ import { EnumToListService } from "./server/enum-to-list/enum-to-list.service";
         HeaderComponent
     ],
     providers: [
+        CookieService,
         AuthorityService,
         AuthorityGuardService,
         SystemConfigService,

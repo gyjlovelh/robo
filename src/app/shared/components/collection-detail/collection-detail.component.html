@@ -2,11 +2,19 @@
  * @Author: guanyj
  * @Email: 18062791691@163.com
  * @Date: 2019-02-04 18:26:05
- * @LastEditTime: 2019-02-09 12:22:52
+ * @LastEditTime: 2019-02-10 18:20:31
  -->
 <nz-modal [nzTitle]="'详细规则'" *ngIf="nzVisible" [nzWidth]="600" [nzVisible]="nzVisible" [nzMask]="true" [nzOkText]="'确定'"
     [nzCancelText]="'返回'" [nzMaskClosable]="false" [nzClosable]="true" (nzOnCancel)="nzVisible = false" (nzOnOk)="onSubmit()">
 
-    <hs-form  [rules]="rules"></hs-form>
+    <hs-form [rules]="rules">
+
+    </hs-form>
 
 </nz-modal>
+
+<ng-template #dropdownTemplate>
+    <span>枚举配置
+        <i nz-icon nz-tooltip nzTitle="一行定义一个枚举值，格式为：中文名 英文名 枚举值 " type="question-circle" theme="outline"></i>
+    </span>
+</ng-template>

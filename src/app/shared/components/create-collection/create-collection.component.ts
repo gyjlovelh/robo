@@ -54,12 +54,26 @@ export class CreateCollectionComponent implements OnInit {
     }
 
     onSubmit() {
-        console.log(this.details);
-        console.log(this.rules.value);
         const config = {};
         this.list.forEach(field => {
-            config[this.rules.get(field).value] = this.details.get(field);
+            const value = this.details.get(field);
+            if (value.fieldType === 'dropdown') {
+                const list = [];
+                value.dropdown.split(/\n+/i).forEach(row => {
+                    const cols = row.split(/\s+/);
+                    if (!list.find(item => item.value === cols[2])) {
+                        list.push({
+                            label_zh: cols[0],
+                            label_en: cols[1],
+                            value: cols[2]
+                        });
+                    }
+                });
+                value.dropdown = list;
+            }
+            config[this.rules.get(field).value] = value;
         });
+        console.log(this.list, config);
 
         this.$service.createCollection({collection: this.rules.get('tableName').value, config}).subscribe(res => {
             this.$notify.success('数据库操作', '成功创建XXXX表 xxxx');

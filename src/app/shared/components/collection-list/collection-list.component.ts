@@ -71,7 +71,9 @@ export class CollectionListComponent implements OnInit {
                 item.width = 100;
                 item.field = item.fieldName;
                 item.filterType = item.fieldType;
-                console.log('item', item);
+                if (item.fieldType === 'dropdown') {
+                    item.dropdown = item.dropdown.map(el => ({label: el.label_zh, value: el.value}));
+                }
                 return item;
             });
 

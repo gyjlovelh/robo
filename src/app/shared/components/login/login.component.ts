@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
 
     ngOnInit() {
         this.isLogin = this.$cookie.check('user');
+        this.$bus.commit(TopicConst.login, {status: this.isLogin});
 
         this.rules = new FormGroup({});
 
@@ -37,16 +38,23 @@ export class LoginComponent implements OnInit {
         this.rules.addControl('password', new FormControl());
     }
 
+    /**
+     * 登录
+     * @param btn
+     */
     handleLogin(btn: any) {
         this.$loginService.login(this.rules.get('username').value, this.rules.get('password').value).subscribe(res => {
             this.isLogin = true;
-            this.$cookie.set('user', res.data.code);
+            // 设置cookie
+            // this.$cookie.set('user', res.data.code, new Date(new Date().getTime() + 2 * 60 * 60 * 1000));
+            // 设置TOKEN
+            console.log('this.is', this.$cookie.get('user'));
             // 缓存该用户所有collection名称
             this.$system.setSystemConfigByKey('collections', Object.keys(res.data.collections).map(key => key.split('_')[1]));
             // 设置语言环境
             this.$system.setSystemConfigByKey('language', 'zh_CN');
             // 推送登录成功消息
-            this.$bus.commit(TopicConst.login, {status: true});
+            this.$bus.commit(TopicConst.login, {status: this.isLogin});
         });
     }
 }

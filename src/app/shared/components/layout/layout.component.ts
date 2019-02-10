@@ -38,6 +38,10 @@ export class LayoutComponent implements OnInit {
         }
     }
 
+    onCollectionDelete(name: string) {
+        console.log('---', name);
+    }
+
     handleCloseTab(name: string) {
         this.tabs = this.tabs.filter(tab => tab !== name);
     }

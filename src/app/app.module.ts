@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { NgModule, Inject } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
@@ -12,7 +12,7 @@ import { StorageModule } from '@jwaf/storage';
 import { CookieService } from 'ngx-cookie-service';
 
 /** 配置 angular i18n **/
-import { registerLocaleData } from '@angular/common';
+import { registerLocaleData, DOCUMENT } from '@angular/common';
 import zh from '@angular/common/locales/zh';
 registerLocaleData(zh);
 
@@ -52,7 +52,6 @@ import { SystemConfigKey } from './shared/const/system-config-key';
     providers: [
         { provide: NZ_I18N, useValue: zh_CN },
         { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
-        CookieService,
         { provide: UrlService, useFactory: () => {
             return new UrlService(environment.httpHeadUrl, environment.wsHeadUrl);
         }},
@@ -63,9 +62,7 @@ import { SystemConfigKey } from './shared/const/system-config-key';
             return new I18nService(language);
         }}
     ],
-    entryComponents: [
-
-    ],
+    entryComponents: [],
     bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

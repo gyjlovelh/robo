@@ -5,3 +5,29 @@
     background-image: url('../../../../assets/image/logo.svg');
     background-size: auto;
 }
+
+.delete-btn {
+    display: inline-block;
+    float: right;
+}
+
+.todo-list {
+    position: absolute;
+    right: 20px;
+    bottom: 40px;
+    z-index: 99;
+    width: 32px;
+    height: 32px;
+    border-radius: 2px;
+    font-size: 20px;
+    text-align: center;
+    line-height: 32px;
+    cursor: pointer;
+    box-shadow: 2px 2px 6px #bfbfbf;
+}
+
+.todo-wrap {
+    position: absolute;
+    top: 20px;
+    border: 1px solid red;
+}
