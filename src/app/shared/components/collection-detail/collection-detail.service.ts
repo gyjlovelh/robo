@@ -27,9 +27,6 @@ export class CollectionDetailService {
         this.rules.addControl('fieldType', this.initFieldTypeControl());
         this.rules.addControl('title_zh', this.initTitleZhControl());
         this.rules.addControl('title_en', this.initTitleEnControl());
-        // this.rules.addControl('dropdown', this.initDropdownControl());
-        this.rules.addControl('max', this.initMaxControl());
-        this.rules.addControl('min', this.initMinControl());
         this.rules.addControl('maxlength', this.initMaxlengthControl());
         this.rules.addControl('minlength', this.initMinlengthControl());
         this.rules.addControl('required', this.initRequiredControl());
@@ -62,30 +59,19 @@ export class CollectionDetailService {
         control.dropdown = this.$dropdown.getFieldTypeDropdown();
         control.reset('string');
         control.valueChanges.subscribe(value => {
+            this.whenFieldTypeChange();
             if (value === FieldType.string) {
                 this.rules.addControl('minlength', this.initMinlengthControl(), {after: 'fieldType'});
                 this.rules.addControl('maxlength', this.initMaxlengthControl(), {after: 'fieldType'});
-                this.rules.removeControl('min');
-                this.rules.removeControl('max');
-                this.rules.removeControl('dropdown');
             } else if (value === FieldType.numeric) {
                 this.rules.addControl('max', this.initMaxControl(), {after: 'fieldType'});
                 this.rules.addControl('min', this.initMinControl(), {after: 'fieldType'});
-                this.rules.removeControl('minlength');
-                this.rules.removeControl('maxlength');
-                this.rules.removeControl('dropdown');
             } else if (value === FieldType.dropdown) {
                 this.rules.addControl('dropdown', this.initDropdownControl(), {after: 'fieldType'});
-                this.rules.removeControl('min');
-                this.rules.removeControl('max');
-                this.rules.removeControl('minlength');
-                this.rules.removeControl('maxlength');
+            } else if (value === FieldType.date) {
+                this.rules.addControl('dateformat', this.initDateFormatControl(), {after: 'fieldType'});
             } else {
-                this.rules.removeControl('min');
-                this.rules.removeControl('max');
-                this.rules.removeControl('minlength');
-                this.rules.removeControl('maxlength');
-                this.rules.removeControl('dropdown');
+
             }
         });
         return control;
@@ -113,6 +99,7 @@ export class CollectionDetailService {
         const control = new HsFormControl();
         control.field = 'title_en';
         control.label = '英文名';
+        control.required = true;
         control.type = 'input';
 
         control.setValidators([
@@ -133,12 +120,22 @@ export class CollectionDetailService {
         control.field = 'dropdown';
         control.labelTemplate = this.templateMap.get('dropdownTemplate');
         control.type = 'textarea';
+        control.placeholder = `张三 zhangsan zs\n李四 lisi ls\n...`;
         control.setValidators([
             Validators.required,
             Validators.pattern(/([a-z\u4e00-\u9fa5]+\s[a-z]+\s[a-z0-9]+(\n)*)+/i)
         ]);
         control.setErrorMsg('required', this.$i18n.get('errorMessage.required'));
         control.setErrorMsg('pattern', '正则不对');
+        return control;
+    }
+    /** 日期格式化 */
+    private initDateFormatControl() {
+        const control = new HsFormControl();
+        control.field = 'dateformat';
+        control.label = '日期格式';
+        control.type = 'input';
+        control.placeholder = 'yyyy/MM/dd hh:mm:ss';
         return control;
     }
 
@@ -220,5 +217,14 @@ export class CollectionDetailService {
         control.label = '异步校验';
         control.type = 'input';
         return control;
+    }
+
+    private whenFieldTypeChange() {
+        this.rules.removeControl('min');
+        this.rules.removeControl('max');
+        this.rules.removeControl('minlength');
+        this.rules.removeControl('maxlength');
+        this.rules.removeControl('dropdown');
+        this.rules.removeControl('dateformat');
     }
 }

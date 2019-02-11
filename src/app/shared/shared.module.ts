@@ -1,5 +1,10 @@
 /**
- * Created by guanyj on  2018/9/4
+ * Shared模块
+ *
+ * @Author: guanyj
+ * @Email: 18062791691@163.com
+ * @Date: 2019-02-03 18:41:52
+ * @LastEditTime: 2019-02-11 12:16:56
  */
 
 import { NgModule, Injector } from "@angular/core";

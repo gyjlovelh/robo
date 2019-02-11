@@ -69,15 +69,10 @@ export class DocumentDetailComponent {
         private $form: DocumentDetailService,
         private $notify: NzNotificationService,
         private $i18n: CommonI18nService
-    ) {
-        // const group = new HsFormGroup();
-        // group.addControl('name', new HsFormControl());
-        // group.addControl('age', new HsFormControl());
-
-        // this.rules = group;
-    }
+    ) {}
 
     handleBack() {
+        this.rules.reset();
         this.onback.emit(true);
     }
 

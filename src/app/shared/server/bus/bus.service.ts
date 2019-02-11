@@ -1,3 +1,11 @@
+/**
+ * 项目消息队列
+ *
+ * @Author: guanyj
+ * @Email: 18062791691@163.com
+ * @Date: 2019-02-07 19:04:22
+ * @LastEditTime: 2019-02-11 12:18:44
+ */
 import { Injectable } from "@angular/core";
 import { Subject } from "rxjs";
 

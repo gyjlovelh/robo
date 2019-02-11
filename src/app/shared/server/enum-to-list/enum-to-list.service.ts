@@ -9,6 +9,9 @@ export class EnumToListService {
         private $i18n: CommonI18nService
     ) {}
 
+    /**
+     * 获取字段类型枚举
+     */
     getFieldTypeDropdown() {
         return Object.keys(FieldType).map(key => ({label: this.$i18n.get(`enum.fieldType.${key}`), value: FieldType[key]}));
     }

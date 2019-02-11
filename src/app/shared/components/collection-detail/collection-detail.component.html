@@ -2,17 +2,37 @@
  * @Author: guanyj
  * @Email: 18062791691@163.com
  * @Date: 2019-02-04 18:26:05
- * @LastEditTime: 2019-02-10 18:20:31
+ * @LastEditTime: 2019-02-11 11:17:04
  -->
-<nz-modal [nzTitle]="'详细规则'" *ngIf="nzVisible" [nzWidth]="600" [nzVisible]="nzVisible" [nzMask]="true" [nzOkText]="'确定'"
-    [nzCancelText]="'返回'" [nzMaskClosable]="false" [nzClosable]="true" (nzOnCancel)="nzVisible = false" (nzOnOk)="onSubmit()">
+<nz-modal [nzTitle]="'详细规则'"
+    *ngIf="nzVisible"
+    [nzWidth]="600"
+    [nzVisible]="nzVisible"
+    [nzMask]="true"
+    [nzFooter]="footer"
+    [nzMaskClosable]="false"
+    [nzClosable]="true"
+    (nzOnCancel)="onCancel()"
+    (nzOnOk)="onSubmit()">
 
-    <hs-form [rules]="rules">
-
+    <hs-form #form [rules]="rules">
+        <!-- 置空默认按钮组 -->
+        <ng-template hsFormFooterTemplate let-r>
+            <button nz-button
+                [nzType]="'primary'"
+                [disabled]="!(rules.dirty && rules.valid)"
+                (click)="onSubmit()">确认</button>
+            <button nz-button>重置</button>
+            <button nz-button (click)="onCancel()">返回</button>
+        </ng-template>
     </hs-form>
 
+    <ng-template #footer>
+
+    </ng-template>
 </nz-modal>
 
+<!-- 下拉框label模板 -->
 <ng-template #dropdownTemplate>
     <span>枚举配置
         <i nz-icon nz-tooltip nzTitle="一行定义一个枚举值，格式为：中文名 英文名 枚举值 " type="question-circle" theme="outline"></i>

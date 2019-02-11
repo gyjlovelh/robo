@@ -50,6 +50,11 @@ export class CollectionDetailComponent implements OnInit, AfterViewInit {
         this.$service.addTemplate('dropdownTemplate', this.dropdownTemplate);
     }
 
+    onCancel() {
+        this.rules.reset();
+        this.nzVisible = false;
+    }
+
     onSubmit() {
         this.nzOnOk.emit(Object.assign(this.rules.value, {field: this.field}));
         this.nzVisible = false;
