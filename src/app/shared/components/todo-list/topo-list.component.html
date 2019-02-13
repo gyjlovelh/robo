@@ -1,0 +1,88 @@
+<!--
+ * @Author: guanyj
+ * @Email: 18062791691@163.com
+ * @Date: 2019-02-11 14:51:52
+ * @LastEditTime: 2019-02-13 17:56:04
+ -->
+
+<div class="todo-wrap">
+    <ul class="todo-menu">
+        <!-- 新增任务 -->
+        <li nz-popover
+            [nzPlacement]="'rightTop'"
+            [nzTitle]="popTitle"
+            [nzTrigger]="'click'"
+            [nzContent]="popContent">
+            <span class="font_family icon-xinjianshiyongX"></span>
+            <span>New Task</span>
+
+            <ng-template #popTitle>
+                <span>New Task</span>
+                <div class="pop-actions">
+                    <span class="action-active font_family icon-shizhong"></span>
+                    <span class="font_family icon-alarm"></span>
+                    <span class="action-active font_family icon-tupian"></span>
+                    <span class="font_family icon-icon_repeat"></span>
+                </div>
+            </ng-template>
+
+            <ng-template #popContent>
+                <div class="pop-content-wrap">
+                    <div class="">
+                        <span class="font_family icon-biaoqian"></span>
+                        <nz-tag *ngFor="let tag of editTaskTags"
+                            [nzMode]="'closeable'"
+                            [nzColor]="tag.color"
+                            (nzAfterClose)="afterTagClose(tag)">{{tag.name}}</nz-tag>
+                        <nz-tag *ngIf="!inputVisible" class="editable-tag"
+                            (click)="showInput()">
+                            <i nz-icon type="plus"></i> New Tag
+                        </nz-tag>
+                        <input
+                            #inputEl
+                            *ngIf="inputVisible"
+                            [nzSize]="'small'"
+                            style="width: 78px;"
+                            maxlength="12"
+                            nz-input
+                            (keydown.enter)="onInputConfirm(inputEl.value)"
+                            (blur)="onInputConfirm(inputEl.value)">
+                    </div>
+                    <div>
+                        <p>
+                            {{rangePicker.nzValue[0]?.nativeDate}}
+                            {{rangePicker.nzValue[1]?.nativeDate}}
+                        </p>
+                        <nz-range-picker #rangePicker [nzSize]="'small'"></nz-range-picker>
+                    </div>
+
+                    <div>
+                        <textarea nz-input></textarea>
+                    </div>
+                </div>
+            </ng-template>
+        </li>
+        <li (click)="onTodoClick(1)" [class.todo-item-active]="selectedIndex === 1"><span class="font_family icon-all"></span>All</li>
+        <li (click)="onTodoClick(2)" [class.todo-item-active]="selectedIndex === 2"><span class="font_family icon-ic_today"></span>Todo</li>
+        <li (click)="onTodoClick(3)" [class.todo-item-active]="selectedIndex === 3"><span class="font_family icon-shouye"></span>Doing</li>
+        <li (click)="onTodoClick(4)" [class.todo-item-active]="selectedIndex === 4"><span class="font_family icon-wancheng"></span>Done</li>
+        <li (click)="onTodoClick(5)" [class.todo-item-active]="selectedIndex === 5"><span class="font_family icon-shoucang"></span>Starred</li>
+    </ul>
+
+    <div class="todo-body">
+        <nz-list class="override"
+            [nzDataSource]="data"
+            [nzBordered]="true"
+            [nzSize]="'small'"
+            [nzRenderItem]="item">
+            <ng-template #item let-item>
+                <nz-list-item [nzContent]="content">
+                    <ng-template #content>
+                        <label nz-checkbox></label>
+                        <span>{{item}}</span>
+                    </ng-template>
+                </nz-list-item>
+            </ng-template>
+        </nz-list>
+    </div>
+</div>

@@ -1,9 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { LayoutService } from "./layout.service";
-import { LocalStorageService } from "@jwaf/storage";
-import { NzMenuItemDirective } from "ng-zorro-antd";
 import { BusService } from "../../server/bus/bus.service";
 import { SystemConfigService } from "../../server/system-config/system-config.service";
+import { TopicConst } from "../../const/topic.const";
+import { TabName } from "../../enum/tab-name.enum";
 
 @Component({
     selector: 'rob-layout',
@@ -14,22 +14,25 @@ import { SystemConfigService } from "../../server/system-config/system-config.se
 export class LayoutComponent implements OnInit {
     isCollapsed = false;
     collectionsName = [];
-    tabs = ['create'];
+    tabs = [TabName.todo];
 
     selectedIndex = 0;
 
     constructor(
         private $layoutService: LayoutService,
-        private $system: SystemConfigService
+        private $system: SystemConfigService,
+        private $bus: BusService
     ) {
-
+        this.$bus.subscribe(TopicConst.topolist, (data: any) => {
+            this.handleMenuClick(data.tab);
+        });
     }
 
     ngOnInit() {
         this.collectionsName = this.$system.getSystemConfigByKey('collections');
     }
 
-    handleMenuClick(name: string) {
+    handleMenuClick(name: TabName) {
         if (this.tabs.includes(name)) {
             this.selectedIndex = this.tabs.findIndex(tab => tab === name);
         } else {
@@ -46,4 +49,7 @@ export class LayoutComponent implements OnInit {
         this.tabs = this.tabs.filter(tab => tab !== name);
     }
 
+    handleTodo() {
+        this.$bus.commit(TopicConst.topolist, {tab: TabName.todo});
+    }
 }

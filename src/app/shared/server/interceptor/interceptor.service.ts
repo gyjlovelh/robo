@@ -48,7 +48,7 @@ export class InterceptorService implements HttpInterceptor {
                             nzTitle: '请求错误',
                             nzContent: value.body.errorMsg
                         });
-                        if (value.body.code === -1) {
+                        if (value.body.errorCode === -1) {
                             this.$bus.commit(TopicConst.login, {status: false});
                         }
                     }

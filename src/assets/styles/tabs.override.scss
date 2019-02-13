@@ -1,0 +1,25 @@
+.override.ant-tabs {
+    overflow: visible;
+
+    .ant-tabs-content {
+        box-shadow: 2px 2px 8px 0 #bfbfbf;
+        border-radius: 2px;
+        padding: 20px 30px;
+        background: #fff;
+        min-height: 500px;
+        overflow: auto;
+    }
+
+    .ant-tabs-bar {
+
+        .ant-tabs-tab {
+            border-radius: 2px 2px 0 0;
+            margin-right: 5px;
+        }
+
+        .ant-tabs-tab-active {
+            font-weight: 400;
+            color: #f5222d;
+        }
+    }
+}

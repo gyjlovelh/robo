@@ -1,0 +1,40 @@
+
+
+
+.override.ant-menu.ant-menu-dark {
+
+    .menu-top {
+        border-top: 1px solid #32353e;
+        border-bottom: 1px solid #1a1c20;
+
+        .ant-menu-submenu-title {
+            margin: 0 0;
+        }
+    }
+
+    .ant-menu-item {
+        margin: 0;
+        color: #c9d4f6;
+
+        .delete-btn {
+            display: inline-block;
+            float: right;
+            visibility: hidden;
+            transition: 0.1s;
+        }
+
+        &:hover {
+            color: #c9d4f6;
+            .delete-btn {
+                visibility: visible;
+            }
+        }
+    }
+
+    .ant-menu-item-selected {
+        background-color: #001a31;
+        color: #fff;
+        box-shadow: inset 2px 0px 0px 0px #009688;
+    }
+}
+

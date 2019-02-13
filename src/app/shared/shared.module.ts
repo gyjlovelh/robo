@@ -34,6 +34,8 @@ import { LoginComponent } from "./components/login/login.component";
 import { EnumToListService } from "./server/enum-to-list/enum-to-list.service";
 import { CookieService } from "ngx-cookie-service";
 import { TodoDirective } from "./directive/todo.directive";
+import { TopoListComponent } from "./components/todo-list/topo-list.component";
+import { TabNamePipe } from "./pipe/tab-name.pipe";
 
 @NgModule({
     imports: [
@@ -53,18 +55,22 @@ import { TodoDirective } from "./directive/todo.directive";
         CollectionListComponent,
         DocumentDetailComponent,
         HeaderComponent,
-        TodoDirective
+        TopoListComponent,
+        TodoDirective,
+        TabNamePipe
     ],
     exports: [
         LayoutComponent,
         LoginComponent,
-        TodoDirective
+        TodoDirective,
+        TabNamePipe
     ],
     entryComponents: [
         CreateCollectionComponent,
         CollectionDetailComponent,
         CollectionListComponent,
         DocumentDetailComponent,
+        TopoListComponent,
         HeaderComponent
     ],
     providers: [
@@ -79,7 +85,9 @@ import { TodoDirective } from "./directive/todo.directive";
             provide: BusService,
             useFactory() {
                 const bus = new BusService();
-                bus.registry( TopicConst.login );
+                Object.keys(TopicConst).forEach(key => {
+                    bus.registry(TopicConst[key]);
+                });
                 return bus;
             }
         },
