@@ -6,4 +6,5 @@ export const SystemConfigKey: any = {
     language: 'language',
     permissions: 'permissions',
     authorization: 'authorization',
+    weekStartDay: 'weekStartDay'
 };

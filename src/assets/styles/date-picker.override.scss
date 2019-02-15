@@ -1,0 +1,20 @@
+
+.ant-calendar-range {
+    width: 360px;
+    font-size: 12px;
+
+    .ant-calendar-input-wrap {
+        display: none;
+        margin-top: -1px;
+    }
+}
+
+.ant-calendar-date {
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+}
+
+.ant-calendar-cell {
+    height: 26px;
+}

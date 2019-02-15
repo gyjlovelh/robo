@@ -1,6 +1,7 @@
 import { Component, ViewChild, ElementRef, OnInit } from "@angular/core";
 import { EnumToListService } from "../../server/enum-to-list/enum-to-list.service";
 import { TimePeriod } from "../../enum/time-period.enum";
+import { NzRangePickerComponent } from "ng-zorro-antd";
 
 @Component({
     selector: 'rob-topo-list',
@@ -28,6 +29,8 @@ export class TopoListComponent implements OnInit {
 
     timePeriodOptions = [];
 
+    isRangePickerVisiable = false;
+
     @ViewChild('inputEl') private inputEl: ElementRef;
 
     constructor(
@@ -49,9 +52,14 @@ export class TopoListComponent implements OnInit {
         }, 10);
     }
 
+    openRangePiker(picker: NzRangePickerComponent) {
+        this.isRangePickerVisiable = true;
+        
+    }
+
     onInputConfirm(value: string) {
         value = value.trim();
-        if (!this.editTaskTags.find(task => task.name === value)) {
+        if (value && !this.editTaskTags.find(task => task.name === value)) {
             this.editTaskTags.push({
                 name: value,
                 color: this.tagColors[Math.floor(Math.random() * this.tagColors.length)]

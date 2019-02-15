@@ -72,8 +72,113 @@
     border-style: dashed;
 }
 
+.task-name-input {
+    border: none;
+    width: 140px;
+    border-radius: 0;
+
+    &:focus {
+        box-shadow: none;
+        border-bottom: 1px solid #ccc;
+    }
+}
+
+$popLeft: 30px;
+
 .pop-content-wrap {
+    position: relative;
     min-width: 500px;
+    min-height: 50px;
+    font-size: 12px;
+    .pop-tag-wrap {
+        background: #dfe7e8;
+    }
+    .todo-tags {
+        white-space: pre-wrap;
+        min-height: 50px;
+        width: 400px;
+        font-size: 12px;
+        padding-left: $popLeft;
+
+        .icon-biaoqian {
+            position: absolute;
+            left: 0;
+            width: $popLeft;
+            text-align: center;
+        }
+
+        .ant-tag {
+            margin-bottom: 3px;
+        }
+
+        .todo-input {
+            height: 22px;
+            top: 1px;
+            border-color: #FF9800;
+
+            &:focus {
+                box-shadow: none;
+            }
+        }
+    }
+
+    .date-start, .date-end {
+        position: absolute;
+        margin-right: 5px;
+        right: 0;
+        top: 0;
+
+        .font_family {
+            font-size: 12px;
+        }
+
+        .icon-kaishi {
+            color: #00BCD4;
+        }
+
+        .icon-wancheng1 {
+            color: #607D8B;
+        }
+    }
+
+    .date-end {
+        top: 20px;
+    }
+
+    .date-range-picker {
+        display: block;
+        position: absolute;
+        right: 0;
+        top: 0;
+        opacity: 0;
+        width: 50px;
+        height: 50px;
+    }
+
+    .todo-textarea {
+        position: relative;
+
+        .font_family {
+            position: absolute;
+            top: 5px;
+            text-align: center;
+            width: $popLeft;
+            font-size: 14px;
+            z-index: 99;
+        }
+
+        textarea {
+            background: #fffaec;
+            border: none;
+            border-radius: 0;
+            padding-left: $popLeft;
+            font-size: 12px;
+
+            &:focus {
+                box-shadow: none;
+            }
+        }
+    }
 }
 
 .pop-actions {

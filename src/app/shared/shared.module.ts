@@ -36,6 +36,8 @@ import { CookieService } from "ngx-cookie-service";
 import { TodoDirective } from "./directive/todo.directive";
 import { TopoListComponent } from "./components/todo-list/topo-list.component";
 import { TabNamePipe } from "./pipe/tab-name.pipe";
+import { DateService } from "./server/date/date.service";
+import { TimeFormatPipe } from "./pipe/time-format.pipe";
 
 @NgModule({
     imports: [
@@ -57,7 +59,8 @@ import { TabNamePipe } from "./pipe/tab-name.pipe";
         HeaderComponent,
         TopoListComponent,
         TodoDirective,
-        TabNamePipe
+        TabNamePipe,
+        TimeFormatPipe
     ],
     exports: [
         LayoutComponent,
@@ -80,6 +83,7 @@ import { TabNamePipe } from "./pipe/tab-name.pipe";
         SystemConfigService,
         PermissionService,
         NavigationService,
+        DateService,
         EnumToListService,
         {
             provide: BusService,

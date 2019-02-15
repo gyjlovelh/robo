@@ -2,13 +2,14 @@
  * @Author: guanyj
  * @Email: 18062791691@163.com
  * @Date: 2019-02-11 14:51:52
- * @LastEditTime: 2019-02-13 17:56:04
+ * @LastEditTime: 2019-02-15 21:41:20
  -->
 
 <div class="todo-wrap">
     <ul class="todo-menu">
         <!-- 新增任务 -->
         <li nz-popover
+            class="override"
             [nzPlacement]="'rightTop'"
             [nzTitle]="popTitle"
             [nzTrigger]="'click'"
@@ -17,7 +18,7 @@
             <span>New Task</span>
 
             <ng-template #popTitle>
-                <span>New Task</span>
+                <input class="task-name-input" nz-input [ngModel]="'new tag'">
                 <div class="pop-actions">
                     <span class="action-active font_family icon-shizhong"></span>
                     <span class="font_family icon-alarm"></span>
@@ -28,36 +29,42 @@
 
             <ng-template #popContent>
                 <div class="pop-content-wrap">
-                    <div class="">
-                        <span class="font_family icon-biaoqian"></span>
-                        <nz-tag *ngFor="let tag of editTaskTags"
-                            [nzMode]="'closeable'"
-                            [nzColor]="tag.color"
-                            (nzAfterClose)="afterTagClose(tag)">{{tag.name}}</nz-tag>
-                        <nz-tag *ngIf="!inputVisible" class="editable-tag"
-                            (click)="showInput()">
-                            <i nz-icon type="plus"></i> New Tag
-                        </nz-tag>
-                        <input
-                            #inputEl
-                            *ngIf="inputVisible"
-                            [nzSize]="'small'"
-                            style="width: 78px;"
-                            maxlength="12"
-                            nz-input
-                            (keydown.enter)="onInputConfirm(inputEl.value)"
-                            (blur)="onInputConfirm(inputEl.value)">
-                    </div>
-                    <div>
-                        <p>
-                            {{rangePicker.nzValue[0]?.nativeDate}}
-                            {{rangePicker.nzValue[1]?.nativeDate}}
-                        </p>
-                        <nz-range-picker #rangePicker [nzSize]="'small'"></nz-range-picker>
+                    <div class="pop-tag-wrap">
+                        <div class="todo-tags">
+                            <span class="font_family icon-biaoqian"></span>
+                            <nz-tag *ngFor="let tag of editTaskTags"
+                                class="todo-tag"
+                                [nzMode]="'closeable'"
+                                [nzColor]="tag.color"
+                                (nzAfterClose)="afterTagClose(tag)">{{tag.name}}</nz-tag>
+                            <nz-tag *ngIf="!inputVisible" class="editable-tag"
+                                (click)="showInput()">
+                                <i nz-icon type="plus"></i> New Tag
+                            </nz-tag>
+                            <input
+                                #inputEl
+                                class="todo-input"
+                                *ngIf="inputVisible"
+                                [nzSize]="'small'"
+                                style="width: 78px;"
+                                maxlength="12"
+                                nz-input
+                                (keydown.enter)="onInputConfirm(inputEl.value)"
+                                (blur)="onInputConfirm(inputEl.value)">
+                        </div>
+                        <em class="date-start">{{rangePicker.nzValue[0]?.nativeDate | taskTimeFormat:'Start'}}
+                            <span class="font_family icon-kaishi"></span>
+                        </em>
+                        <em class="date-end">{{rangePicker.nzValue[1]?.nativeDate | taskTimeFormat:'End'}}
+                            <span class="font_family icon-wancheng1"></span>
+                        </em>
+
+                        <nz-range-picker class="date-range-picker" #rangePicker [nzAllowClear]="false" [nzSize]="'small'"></nz-range-picker>
                     </div>
 
-                    <div>
-                        <textarea nz-input></textarea>
+                    <div class="todo-textarea">
+                        <span class="font_family icon-all"></span>
+                        <textarea nz-input rows="5"></textarea>
                     </div>
                 </div>
             </ng-template>

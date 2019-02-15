@@ -5,6 +5,8 @@ import { LoginService } from './login.service';
 import { BusService } from '../../server/bus/bus.service';
 import { TopicConst } from '../../const/topic.const';
 import { SystemConfigService } from '../../server/system-config/system-config.service';
+import { Day } from '@progress/kendo-date-math';
+import { SystemConfigKey } from '../../const/system-config-key';
 
 @Component({
     selector: 'rob-login',
@@ -52,7 +54,9 @@ export class LoginComponent implements OnInit {
             // 缓存该用户所有collection名称
             this.$system.setSystemConfigByKey('collections', Object.keys(res.data.collections).map(key => key.split('_')[1]));
             // 设置语言环境
-            this.$system.setSystemConfigByKey('language', 'zh_CN');
+            this.$system.setSystemConfigByKey(SystemConfigKey.language, 'zh_CN');
+            // 设置WeekStart
+            this.$system.setSystemConfigByKey(SystemConfigKey.weekStartDay, Day.Monday);
             // 推送登录成功消息
             this.$bus.commit(TopicConst.login, {status: this.isLogin});
         });

@@ -381,6 +381,12 @@
     tree-kill "^1.0.0"
     webpack-sources "^1.1.0"
 
+"@progress/kendo-date-math@^1.4.0":
+  version "1.4.0"
+  resolved "https://registry.npmjs.org/@progress/kendo-date-math/-/kendo-date-math-1.4.0.tgz#ddf181959cc3a8239239b05eeeeded35b59689bd"
+  dependencies:
+    tslib "^1.7.0"
+
 "@schematics/angular@0.7.5":
   version "0.7.5"
   resolved "https://registry.npmjs.org/@schematics/angular/-/angular-0.7.5.tgz#ccb5ce587161b24042195e100be556ae19b3b7f6"
@@ -6134,7 +6140,7 @@ tsickle@^0.32.1:
     source-map "^0.6.0"
     source-map-support "^0.5.0"
 
-tslib@^1.7.1, tslib@^1.8.0, tslib@^1.8.1, tslib@^1.9.0:
+tslib@^1.7.0, tslib@^1.7.1, tslib@^1.8.0, tslib@^1.8.1, tslib@^1.9.0:
   version "1.9.3"
   resolved "https://registry.npmjs.org/tslib/-/tslib-1.9.3.tgz#d7e4dd79245d85428c4d7e4822a79917954ca286"
 
